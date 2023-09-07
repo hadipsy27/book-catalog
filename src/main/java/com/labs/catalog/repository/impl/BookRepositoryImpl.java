@@ -3,6 +3,7 @@ package com.labs.catalog.repository.impl;
 import com.labs.catalog.domain.Book;
 import com.labs.catalog.repository.BookRepository;
 import lombok.Data;
+import org.springframework.stereotype.Repository;
 
 import java.util.Map;
 

@@ -16,11 +16,11 @@ public class AppConfig {
 
     @Bean
     public Author author(){
-        return new Author(1L, "Hadi Parasetyo", -16401L);
+        return new Author(1L, "Hadi Prasetyo", -16401L);
     }
 
     @Bean
-    public Book book(Author author){
+    public Book book1(Author author){
         Book book = new Book();
         book.setId(1L);
         book.setTitle("Bumi Manusia");
@@ -30,7 +30,7 @@ public class AppConfig {
     }
 
     @Bean
-    public Book book1(Author author){
+    public Book book2(Author author){
         Book book = new Book();
         book.setId(2L);
         book.setTitle("Arok Dedes");
@@ -39,6 +39,7 @@ public class AppConfig {
         return book;
     }
 
+    @Bean
     public BookRepository bookRepository(Book book1, Book book2){
         Map<Long, Book> bookMap = new HashMap<Long, Book>();
         bookMap.put(1L, book1);
