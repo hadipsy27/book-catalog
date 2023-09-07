@@ -5,7 +5,6 @@ import com.labs.catalog.domain.Book;
 import com.labs.catalog.repository.BookRepository;
 import com.labs.catalog.repository.impl.BookRepositoryImpl;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 import java.util.HashMap;
