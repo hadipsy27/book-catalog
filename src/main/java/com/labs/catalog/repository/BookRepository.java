@@ -10,4 +10,6 @@ public interface BookRepository {
 
     public List<Book> findAll();
 
+    public void save(Book book);
+
 }

@@ -1,6 +1,8 @@
 package com.labs.catalog.service.impl;
 
+import com.labs.catalog.domain.Author;
 import com.labs.catalog.domain.Book;
+import com.labs.catalog.dto.BookCreateDTO;
 import com.labs.catalog.dto.BookDetailDto;
 import com.labs.catalog.repository.BookRepository;
 import com.labs.catalog.service.BookService;
@@ -40,5 +42,17 @@ public class BookServiceImpl implements BookService {
             bookDetailDto.setBookId(book.getId());
             return bookDetailDto;
         }).collect(Collectors.toList());
+    }
+
+    @Override
+    public void createNewBook(BookCreateDTO dto) {
+        Author author = new Author();
+        author.setName(dto.getAuthorName());
+
+        Book book = new Book();
+        book.setAuthor(author);
+        book.setTitle(dto.getBookTitle());
+        book.setDescription(dto.getDescription());
+        bookRepository.save(book);
     }
 }
