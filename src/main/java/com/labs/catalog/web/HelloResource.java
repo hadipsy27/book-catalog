@@ -4,6 +4,9 @@ import com.labs.catalog.dto.HelloMessageDTO;
 import com.labs.catalog.service.GreetingService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,7 +21,7 @@ public class HelloResource {
     }
 
     @GetMapping("/hello")
-    public HelloMessageDTO helloWorld(){
+    public ResponseEntity<HelloMessageDTO> helloWorld(){
         logger.trace("This is Log TRACE");
         logger.debug("This is Log DEBUG");
         logger.info("This is Log INFO");
@@ -26,6 +29,8 @@ public class HelloResource {
         logger.error("This is Log ERROR");
         HelloMessageDTO dto = new HelloMessageDTO();
         dto.setMessage(greetingService.sayGreetings());
-        return dto;
+        // return ResponseEntity.status(HttpStatus.ACCEPTED).body(dto);
+        return ResponseEntity.ok(dto);
     }
+
 }
