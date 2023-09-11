@@ -16,4 +16,6 @@ public interface BookService {
     public void createNewBook(BookCreateDTO dto);
 
     public void updateBook(Long bookId, BookUpdateRequestDTO dto);
+
+    public void deleteBook(Long bookId);
 }
