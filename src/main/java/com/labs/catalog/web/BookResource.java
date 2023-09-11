@@ -2,6 +2,7 @@ package com.labs.catalog.web;
 
 import com.labs.catalog.dto.BookCreateDTO;
 import com.labs.catalog.dto.BookDetailDto;
+import com.labs.catalog.dto.BookUpdateRequestDTO;
 import com.labs.catalog.service.BookService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -42,5 +43,12 @@ public class BookResource {
     @GetMapping("/book")
     public ResponseEntity<List<BookDetailDto>> findBookList(){
         return ResponseEntity.ok().body(bookService.findBookDetail());
+    }
+
+    @PutMapping("/book/{bookId}")
+    public ResponseEntity<Void> updateBook(@PathVariable Long bookId, @RequestBody BookUpdateRequestDTO dto){
+        bookService.updateBook(bookId, dto);
+        return ResponseEntity.ok().build();
+
     }
 }

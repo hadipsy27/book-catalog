@@ -4,6 +4,7 @@ import com.labs.catalog.domain.Author;
 import com.labs.catalog.domain.Book;
 import com.labs.catalog.dto.BookCreateDTO;
 import com.labs.catalog.dto.BookDetailDto;
+import com.labs.catalog.dto.BookUpdateRequestDTO;
 import com.labs.catalog.repository.BookRepository;
 import com.labs.catalog.service.BookService;
 import lombok.AllArgsConstructor;
@@ -54,5 +55,14 @@ public class BookServiceImpl implements BookService {
         book.setTitle(dto.getBookTitle());
         book.setDescription(dto.getDescription());
         bookRepository.save(book);
+    }
+
+    @Override
+    public void updateBook(Long bookId, BookUpdateRequestDTO dto) {
+        Book book = bookRepository.findBookById(bookId);
+        book.setTitle(dto.getBookTitle());
+        book.setDescription(dto.getDescription());
+
+        bookRepository.update(book);
     }
 }
