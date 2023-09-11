@@ -10,6 +10,7 @@ import org.springframework.util.StopWatch;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.util.List;
 
 @Slf4j
 @AllArgsConstructor
@@ -36,5 +37,10 @@ public class BookResource {
         bookService.createNewBook(bookCreateDTO);
         return ResponseEntity.created(URI.create("/book")).build();
 
+    }
+
+    @GetMapping("/book")
+    public ResponseEntity<List<BookDetailDto>> findBookList(){
+        return ResponseEntity.ok().body(bookService.findBookDetail());
     }
 }
