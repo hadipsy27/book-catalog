@@ -3,6 +3,7 @@ package com.labs.catalog.web;
 import com.labs.catalog.domain.Author;
 import com.labs.catalog.dto.AuthorCreateRequestDTO;
 import com.labs.catalog.dto.AuthorResponseDTO;
+import com.labs.catalog.dto.AuthorUpdateRequestDTO;
 import com.labs.catalog.service.AuthorService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -28,5 +29,11 @@ public class AuthorResouce {
     public ResponseEntity<AuthorResponseDTO> createNewAuthor(@RequestBody @Valid List<AuthorCreateRequestDTO> requestDTO){
         authorService.createAuthor(requestDTO);
         return ResponseEntity.created(URI.create("/author")).build();
+    }
+
+    @PutMapping("/author/{authorId}")
+    public ResponseEntity<Void> updateAuthor(@PathVariable Long authorId, @RequestBody AuthorUpdateRequestDTO dto){
+        authorService.updateAuthor(authorId, dto);
+        return ResponseEntity.ok().build();
     }
 }

@@ -3,6 +3,7 @@ package com.labs.catalog.service.impl;
 import com.labs.catalog.domain.Author;
 import com.labs.catalog.dto.AuthorCreateRequestDTO;
 import com.labs.catalog.dto.AuthorResponseDTO;
+import com.labs.catalog.dto.AuthorUpdateRequestDTO;
 import com.labs.catalog.exception.BadRequestException;
 import com.labs.catalog.repository.AuthorRepository;
 import com.labs.catalog.service.AuthorService;
@@ -38,5 +39,13 @@ public class AuthorServiceImpl implements AuthorService {
         }).collect(Collectors.toList());
 
         authorRepository.saveAll(authors);
+    }
+
+    @Override
+    public void updateAuthor(Long id, AuthorUpdateRequestDTO dto) {
+        Author author = authorRepository.findById(id).orElseThrow(() -> new BadRequestException("Invalid author id: " + id));
+        author.setName(dto.getAuthorName() == null ? author.getName() : dto.getAuthorName());
+        author.setBirthDate(dto.getBirthDate() == null ? author.getBirthDate() : LocalDate.ofEpochDay(dto.getBirthDate()));
+        authorRepository.save(author);
     }
 }
