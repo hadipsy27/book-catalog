@@ -22,7 +22,7 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Override
     public AuthorResponseDTO findAuthorById(Long id) {
-        Author author = authorRepository.findById(id).orElseThrow(() -> new BadRequestException("Invalid author id: " + id));
+        Author author = authorRepository.findByIdAndDeletedFalse(id).orElseThrow(() -> new BadRequestException("Invalid author id: " + id));
         AuthorResponseDTO authorResponseDTO = new AuthorResponseDTO();
         authorResponseDTO.setAuthorName(author.getName());
         authorResponseDTO.setBirthDate(author.getBirthDate().toEpochDay());
@@ -43,7 +43,7 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Override
     public void updateAuthor(Long id, AuthorUpdateRequestDTO dto) {
-        Author author = authorRepository.findById(id).orElseThrow(() -> new BadRequestException("Invalid author id: " + id));
+        Author author = authorRepository.findByIdAndDeletedFalse(id).orElseThrow(() -> new BadRequestException("Invalid author id: " + id));
         author.setName(dto.getAuthorName() == null ? author.getName() : dto.getAuthorName());
         author.setBirthDate(dto.getBirthDate() == null ? author.getBirthDate() : LocalDate.ofEpochDay(dto.getBirthDate()));
         authorRepository.save(author);
@@ -51,8 +51,15 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Override
     public void deleteAuthor(Long authorId) {
-        Author author = authorRepository.findById(authorId).orElseThrow(() -> new BadRequestException("Invalid author id: " + authorId));
-        authorRepository.deleteById(author.getId());
+        // Hard Delete
+        // Author author = authorRepository.findById(authorId).orElseThrow(() -> new BadRequestException("Invalid author id: " + authorId));
+        // authorRepository.deleteById(author.getId());
 
+        // Soft delete
+        // 1. select data deleted=false
+        Author author = authorRepository.findByIdAndDeletedFalse(authorId).orElseThrow(() -> new BadRequestException("Invalid author id: " + authorId));
+        // 2. update to deleted=true
+        author.setDeleted(Boolean.TRUE);
+        authorRepository.save(author);
     }
 }

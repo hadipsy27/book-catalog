@@ -13,6 +13,8 @@ public interface AuthorRepository extends JpaRepository<Author, Long> {
     // sql -> Select * from Author a where a.id = :authorId
     Optional<Author> findById(Long id);
 
+    Optional<Author> findByIdAndDeletedFalse(Long id);
+
     // sql -> Select a from Author a where a.name LIKE :authorName
     public List<Author> findByNameLike(String authorName);
 
