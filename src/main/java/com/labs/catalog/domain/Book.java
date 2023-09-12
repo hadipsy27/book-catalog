@@ -9,7 +9,7 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "book")
-public class Book implements Serializable {
+public class Book extends AbstractBaseEntity {
 
     private static final long serialVersionUID = -1234567L;
 

@@ -10,7 +10,7 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "publisher")
-public class Publisher implements Serializable {
+public class Publisher extends AbstractBaseEntity {
     @Serial
     private static final long serialVersionUID = 2938165267791997824L;
 
