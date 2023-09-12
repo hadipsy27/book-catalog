@@ -28,7 +28,8 @@ public class Author {
     // apabila tetap akan menggunakan IDENTITY maka cara terbaik yaitu dengan menggunakan Strore Prosedure
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "author_generator")
+    @SequenceGenerator(name = "author_generator", sequenceName = "author_id_seq") // untuk saat ini sequence generator belum terpakai, nanti akan terpakai apabila ada entity yg menggunakan squence pada entity nya. supaya tidak bertabrakan saat membuat id
     private Long id;
 
     @Column(name = "author_name", nullable = false, columnDefinition = "varchar(300)")
