@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
 import java.time.LocalDate;
 
@@ -14,6 +16,8 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "author")
 @DynamicUpdate // Hanya mengupdate kolom yg di request saja
+@SQLDelete(sql = "UPDATE author SET deleted = true WHERE id = ?")
+@Where(clause = "deleted=false")
 public class Author {
 
     // Jika membuat batch insert gunakan generationType nya SEQUENCE untuk meng enable batch insert
