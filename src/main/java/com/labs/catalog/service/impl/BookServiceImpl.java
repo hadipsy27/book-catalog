@@ -5,6 +5,7 @@ import com.labs.catalog.domain.Book;
 import com.labs.catalog.dto.BookCreateDTO;
 import com.labs.catalog.dto.BookDetailDto;
 import com.labs.catalog.dto.BookUpdateRequestDTO;
+import com.labs.catalog.exception.BadRequestException;
 import com.labs.catalog.repository.BookRepository;
 import com.labs.catalog.service.BookService;
 import lombok.AllArgsConstructor;
@@ -21,11 +22,11 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public BookDetailDto findBookDetailById(Long id) {
-        Book book = bookRepository.findBookById(id);
+        Book book = bookRepository.findById(id).orElseThrow(() -> new BadRequestException("book_id.Invalid"));
         BookDetailDto bookDetailDto = new BookDetailDto();
 
         bookDetailDto.setBookId(book.getId());
-        bookDetailDto.setAuthorName(book.getAuthor().getName());
+//        bookDetailDto.setAuthorName(book.getAuthor().getName());
         bookDetailDto.setBookTitle(book.getTitle());
         bookDetailDto.setBookDescription(book.getDescription());
         return bookDetailDto;
@@ -37,7 +38,7 @@ public class BookServiceImpl implements BookService {
 
         return books.stream().map(book -> {
             BookDetailDto bookDetailDto = new BookDetailDto();
-            bookDetailDto.setAuthorName(book.getAuthor().getName());
+//            bookDetailDto.setAuthorName(book.getAuthor().getName());
             bookDetailDto.setBookTitle(book.getTitle());
             bookDetailDto.setBookDescription(book.getDescription());
             bookDetailDto.setBookId(book.getId());
@@ -51,7 +52,7 @@ public class BookServiceImpl implements BookService {
         author.setName(dto.getAuthorName());
 
         Book book = new Book();
-        book.setAuthor(author);
+//        book.setAuthor(author);
         book.setTitle(dto.getBookTitle());
         book.setDescription(dto.getDescription());
         bookRepository.save(book);
@@ -59,15 +60,15 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public void updateBook(Long bookId, BookUpdateRequestDTO dto) {
-        Book book = bookRepository.findBookById(bookId);
+        Book book = bookRepository.findById(bookId).orElseThrow(() -> new BadRequestException("book_id.Invalid"));
         book.setTitle(dto.getBookTitle());
         book.setDescription(dto.getDescription());
 
-        bookRepository.update(book);
+        bookRepository.save(book);
     }
 
     @Override
     public void deleteBook(Long bookId) {
-        bookRepository.delete(bookId);
+        bookRepository.deleteById(bookId);
     }
 }
