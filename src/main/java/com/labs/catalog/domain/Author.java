@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.DynamicUpdate;
 
 import java.time.LocalDate;
 
@@ -12,6 +13,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Entity
 @Table(name = "author")
+@DynamicUpdate // Hanya mengupdate kolom yg di request saja
 public class Author {
 
     // Jika membuat batch insert gunakan generationType nya SEQUENCE untuk meng enable batch insert
