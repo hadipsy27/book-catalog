@@ -22,4 +22,7 @@ public class Book implements Serializable {
     @Column(name = "description", nullable = true)
     private String description;
 
+    @ManyToOne
+    @JoinColumn(name = "publisher_id", nullable = false)
+    private Publisher publisher;
 }
