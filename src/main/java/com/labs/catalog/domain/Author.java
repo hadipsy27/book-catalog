@@ -9,12 +9,16 @@ import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
 import java.time.LocalDate;
+import java.util.UUID;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "author")
+// Mengindex secure id agar ketika mengQuery menjadi lebih cepat
+@Table(name = "author", indexes = {
+        @Index(name = "uk_secure_id", columnList = "secure_id")
+})
 @DynamicUpdate // Hanya mengupdate kolom yg di request saja
 @SQLDelete(sql = "UPDATE author SET deleted = true WHERE id = ?")
 @Where(clause = "deleted=false")
@@ -31,6 +35,9 @@ public class Author {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "author_generator")
     @SequenceGenerator(name = "author_generator", sequenceName = "author_id_seq") // Sekarang terpakai karena ada entity yg menggunakan squence pada entity nya. supaya tidak bertabrakan saat membuat id
     private Long id;
+
+    @Column(name = "secure_id", nullable = false, unique = true)
+    private String secureId = UUID.randomUUID().toString();
 
     @Column(name = "author_name", nullable = false, columnDefinition = "varchar(300)")
     private String name;
