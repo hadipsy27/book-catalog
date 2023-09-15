@@ -1,7 +1,9 @@
 package com.labs.catalog.web;
 
 import com.labs.catalog.dto.PublisherCreateRequestDTO;
+import com.labs.catalog.dto.PublisherListResponseDTO;
 import com.labs.catalog.dto.PublisherUpdateRequestDTO;
+import com.labs.catalog.dto.ResultPageResponseDTO;
 import com.labs.catalog.service.PublisherService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -28,5 +30,15 @@ public class PublisherResource {
                                                 @RequestBody @Valid PublisherUpdateRequestDTO requestDTO){
         publisherService.updatePublisher(publisherId, requestDTO);
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/v1/publisher")
+    public ResponseEntity<ResultPageResponseDTO<PublisherListResponseDTO>> findPublisherList(
+            @RequestParam(name = "pages", required = true, defaultValue = "0") Integer pages,
+            @RequestParam(name = "limit", required = true, defaultValue = "10") Integer limit,
+            @RequestParam(name = "sortBy", required = true, defaultValue = "name") String sortBy,
+            @RequestParam(name = "direction", required = true, defaultValue = "asc") String direction,
+            @RequestParam(name = "publisherName", required = false) String publisherName){
+        return ResponseEntity.ok().body(publisherService.findPublisherList(pages, limit, sortBy, direction, publisherName));
     }
 }
