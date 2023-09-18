@@ -14,7 +14,10 @@ public class LoggingAspect {
     @Pointcut("execution(* com.labs.catalog.web.*.*(..))")
     public void restAPI(){}
 
-    @Before("restAPI()")
+    @Pointcut("within(com.labs.catalog.web.*)")
+    public void withinPointcutExample(){}
+
+    @Before("withinPointcutExample()")
     public void beforeExecutedLogging(){
         log.info("This is log from aspect");
     }
