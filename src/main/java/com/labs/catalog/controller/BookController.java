@@ -1,7 +1,7 @@
 package com.labs.catalog.controller;
 
 import com.labs.catalog.dto.BookCreateDTO;
-import com.labs.catalog.dto.BookDetailDto;
+import com.labs.catalog.dto.BookDetailResponseDTO;
 import com.labs.catalog.service.BookService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -25,7 +25,7 @@ public class BookController {
 
     @GetMapping("/list")
     public String findBookList(Model model){
-        List<BookDetailDto> books = bookService.findBookDetail();
+        List<BookDetailResponseDTO> books = bookService.findBookDetail();
         model.addAttribute("books", books);
         return "book/list";
     }

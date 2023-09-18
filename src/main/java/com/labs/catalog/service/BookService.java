@@ -1,7 +1,7 @@
 package com.labs.catalog.service;
 
 import com.labs.catalog.dto.BookCreateDTO;
-import com.labs.catalog.dto.BookDetailDto;
+import com.labs.catalog.dto.BookDetailResponseDTO;
 import com.labs.catalog.dto.BookUpdateRequestDTO;
 
 import java.util.List;
@@ -9,9 +9,9 @@ import java.util.List;
 
 public interface BookService {
 
-    public BookDetailDto findBookDetailById(Long id);
+    public BookDetailResponseDTO findBookDetailById(String secureId);
 
-    public List<BookDetailDto> findBookDetail();
+    public List<BookDetailResponseDTO> findBookDetail();
 
     public void createNewBook(BookCreateDTO dto);
 

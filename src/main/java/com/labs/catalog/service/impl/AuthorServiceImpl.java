@@ -74,4 +74,15 @@ public class AuthorServiceImpl implements AuthorService {
         if (authors.isEmpty()) throw new BadRequestException(("author cant be empty"));
         return authors;
     }
+
+    @Override
+    public List<AuthorResponseDTO> constructDTO(List<Author> authors) {
+        // Parshing List Author to AuthorResponseDTO
+        return authors.stream().map((a -> {
+            AuthorResponseDTO responseDTO = new AuthorResponseDTO();
+            responseDTO.setAuthorName(a.getName());
+            responseDTO.setBirthDate(a.getBirthDate().toEpochDay());
+            return responseDTO;
+        })).collect(Collectors.toList());
+    }
 }

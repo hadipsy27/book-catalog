@@ -1,10 +1,7 @@
 package com.labs.catalog.service.impl;
 
 import com.labs.catalog.domain.Publisher;
-import com.labs.catalog.dto.PublisherCreateRequestDTO;
-import com.labs.catalog.dto.PublisherListResponseDTO;
-import com.labs.catalog.dto.PublisherUpdateRequestDTO;
-import com.labs.catalog.dto.ResultPageResponseDTO;
+import com.labs.catalog.dto.*;
 import com.labs.catalog.exception.BadRequestException;
 import com.labs.catalog.repository.PublisherRepository;
 import com.labs.catalog.service.PublisherService;
@@ -71,6 +68,15 @@ public class PublisherServiceImpl implements PublisherService {
             return dto;
         }).collect(Collectors.toList());
         return PaginationUtil.createResultPageDTO(dtos, pageResult.getTotalElements(), pageResult.getTotalPages());
+    }
+
+    @Override
+    public PublisherReponseDTO constructDTO(Publisher publisher) {
+        PublisherReponseDTO responseDTO = new PublisherReponseDTO();
+        responseDTO.setPublisherId(publisher.getSecureId());
+        responseDTO.setPublisherName(publisher.getName());
+        return responseDTO;
+
     }
 
     @Override

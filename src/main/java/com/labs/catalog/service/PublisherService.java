@@ -1,10 +1,9 @@
 package com.labs.catalog.service;
 
 import com.labs.catalog.domain.Publisher;
-import com.labs.catalog.dto.PublisherCreateRequestDTO;
-import com.labs.catalog.dto.PublisherListResponseDTO;
-import com.labs.catalog.dto.PublisherUpdateRequestDTO;
-import com.labs.catalog.dto.ResultPageResponseDTO;
+import com.labs.catalog.dto.*;
+
+import java.util.List;
 
 public interface PublisherService {
 
@@ -16,4 +15,6 @@ public interface PublisherService {
 
     public ResultPageResponseDTO<PublisherListResponseDTO> findPublisherList(Integer pages, Integer limit,
                                                                              String sortBy, String direction, String publisherName);
+
+    PublisherReponseDTO constructDTO(Publisher publisher);
 }

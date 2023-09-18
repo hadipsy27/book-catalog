@@ -65,4 +65,15 @@ public class CategoryServiceImpl implements CategoryService {
         if (categories.isEmpty()) throw  new BadRequestException("No categories found");
         return categories;
     }
+
+    @Override
+    public List<CategoryListResponseDTO> constructDTO(List<Category> categories) {
+        return categories.stream().map((c) -> {
+            CategoryListResponseDTO responseDTO = new CategoryListResponseDTO();
+            responseDTO.setCode(c.getCode());
+            responseDTO.setName(c.getName());
+            responseDTO.setDescription(c.getDescription());
+            return responseDTO;
+        }).collect(Collectors.toList());
+    }
 }

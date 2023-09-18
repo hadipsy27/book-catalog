@@ -1,7 +1,7 @@
 package com.labs.catalog.web;
 
 import com.labs.catalog.dto.BookCreateDTO;
-import com.labs.catalog.dto.BookDetailDto;
+import com.labs.catalog.dto.BookDetailResponseDTO;
 import com.labs.catalog.dto.BookUpdateRequestDTO;
 import com.labs.catalog.service.BookService;
 import lombok.AllArgsConstructor;
@@ -16,21 +16,22 @@ import java.util.List;
 @Slf4j
 @AllArgsConstructor
 @RestController
+@RequestMapping("/v1")
 public class BookResource {
 
     private final BookService bookService;
 
     @GetMapping("/book/{bookId}")
-    public BookDetailDto findBookDetail(@PathVariable("bookId") Long id){
+    public ResponseEntity<BookDetailResponseDTO> findBookDetail(@PathVariable("bookId") String id){
         StopWatch stopWatch = new StopWatch();
         log.info("Start find book detail " + id);
 
         stopWatch.start();
 
-        BookDetailDto result = bookService.findBookDetailById(id);
+        BookDetailResponseDTO result = bookService.findBookDetailById(id);
         log.info("Finish book detail excution time = {}" , stopWatch.getTotalTimeMillis());
 
-        return result;
+        return ResponseEntity.ok(result);
     }
 
     @PostMapping("/book")
@@ -41,7 +42,7 @@ public class BookResource {
     }
 
     @GetMapping("/book")
-    public ResponseEntity<List<BookDetailDto>> findBookList(){
+    public ResponseEntity<List<BookDetailResponseDTO>> findBookList(){
         return ResponseEntity.ok().body(bookService.findBookDetail());
     }
 

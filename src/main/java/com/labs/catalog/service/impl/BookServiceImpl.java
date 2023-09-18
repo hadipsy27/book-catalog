@@ -5,7 +5,7 @@ import com.labs.catalog.domain.Book;
 import com.labs.catalog.domain.Category;
 import com.labs.catalog.domain.Publisher;
 import com.labs.catalog.dto.BookCreateDTO;
-import com.labs.catalog.dto.BookDetailDto;
+import com.labs.catalog.dto.BookDetailResponseDTO;
 import com.labs.catalog.dto.BookUpdateRequestDTO;
 import com.labs.catalog.exception.BadRequestException;
 import com.labs.catalog.repository.BookRepository;
@@ -29,28 +29,30 @@ public class BookServiceImpl implements BookService {
     private final PublisherService publisherService;
 
     @Override
-    public BookDetailDto findBookDetailById(Long id) {
-        Book book = bookRepository.findById(id).orElseThrow(() -> new BadRequestException("book_id.Invalid"));
-        BookDetailDto bookDetailDto = new BookDetailDto();
+    public BookDetailResponseDTO findBookDetailById(String secureId) {
+        Book book = bookRepository.findBySecureId(secureId).orElseThrow(() -> new BadRequestException("book_id.Invalid"));
+        BookDetailResponseDTO bookDetailResponseDTO = new BookDetailResponseDTO();
 
-        bookDetailDto.setBookId(book.getId());
-//        bookDetailDto.setAuthorName(book.getAuthor().getName());
-        bookDetailDto.setBookTitle(book.getTitle());
-        bookDetailDto.setBookDescription(book.getDescription());
-        return bookDetailDto;
+        bookDetailResponseDTO.setBookId(book.getSecureId());
+        bookDetailResponseDTO.setCategories(categoryService.constructDTO(book.getCategories()));
+        bookDetailResponseDTO.setBookTitle(book.getTitle());
+        bookDetailResponseDTO.setAuthors(authorService.constructDTO(book.getAuthors()));
+        bookDetailResponseDTO.setPublisher(publisherService.constructDTO(book.getPublisher()));
+        bookDetailResponseDTO.setBookDescription(book.getDescription());
+        return bookDetailResponseDTO;
     }
 
     @Override
-    public List<BookDetailDto> findBookDetail() {
+    public List<BookDetailResponseDTO> findBookDetail() {
         List<Book> books = bookRepository.findAll();
 
         return books.stream().map(book -> {
-            BookDetailDto bookDetailDto = new BookDetailDto();
+            BookDetailResponseDTO bookDetailResponseDTO = new BookDetailResponseDTO();
 //            bookDetailDto.setAuthorName(book.getAuthor().getName());
-            bookDetailDto.setBookTitle(book.getTitle());
-            bookDetailDto.setBookDescription(book.getDescription());
-            bookDetailDto.setBookId(book.getId());
-            return bookDetailDto;
+            bookDetailResponseDTO.setBookTitle(book.getTitle());
+            bookDetailResponseDTO.setBookDescription(book.getDescription());
+            //bookDetailResponseDTO.setBookId(book.getId());
+            return bookDetailResponseDTO;
         }).collect(Collectors.toList());
     }
 
