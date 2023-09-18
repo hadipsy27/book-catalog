@@ -10,6 +10,8 @@ public interface PublisherService {
 
     public void createPublisher(PublisherCreateRequestDTO dto);
 
+    Publisher findPublisher(String publisherId);
+
     public void updatePublisher(String publisherId, PublisherUpdateRequestDTO dto);
 
     public ResultPageResponseDTO<PublisherListResponseDTO> findPublisherList(Integer pages, Integer limit,

@@ -67,4 +67,11 @@ public class AuthorServiceImpl implements AuthorService {
         Author author = authorRepository.findBySecureId(authorId).orElseThrow(() -> new BadRequestException("Invalid author id: " + authorId));
         authorRepository.delete(author);
     }
+
+    @Override
+    public List<Author> findAuthors(List<String> authorIdList) {
+        List<Author> authors = authorRepository.findBySecureIdIn(authorIdList);
+        if (authors.isEmpty()) throw new BadRequestException(("author cant be empty"));
+        return authors;
+    }
 }

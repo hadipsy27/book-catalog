@@ -4,10 +4,12 @@ import com.labs.catalog.domain.Category;
 import com.labs.catalog.dto.CategoryCreateAndUpdateRequestDTO;
 import com.labs.catalog.dto.CategoryListResponseDTO;
 import com.labs.catalog.dto.ResultPageResponseDTO;
+import com.labs.catalog.exception.BadRequestException;
 import com.labs.catalog.repository.CategoryRepository;
 import com.labs.catalog.service.CategoryService;
 import com.labs.catalog.util.PaginationUtil;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -19,6 +21,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@Slf4j
 @AllArgsConstructor
 public class CategoryServiceImpl implements CategoryService {
 
@@ -54,5 +57,12 @@ public class CategoryServiceImpl implements CategoryService {
 
         })).collect(Collectors.toList());
         return PaginationUtil.createResultPageDTO(categories, pageResult.getTotalElements(), pageResult.getTotalPages());
+    }
+
+    @Override
+    public List<Category> findCategories(List<String> categoryCodeList) {
+        List<Category> categories = categoryRepository.findByCodeIn(categoryCodeList);
+        if (categories.isEmpty()) throw  new BadRequestException("No categories found");
+        return categories;
     }
 }

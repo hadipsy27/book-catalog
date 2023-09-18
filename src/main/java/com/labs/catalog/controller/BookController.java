@@ -32,8 +32,8 @@ public class BookController {
 
     @GetMapping("/new")
     public String loadBookForm(Model model) {
-        BookCreateDTO bookCreateDTO = new BookCreateDTO();
-        model.addAttribute("bookCreateDTO", bookCreateDTO);
+        BookCreateDTO bookCreateRequestDTO = new BookCreateDTO();
+        model.addAttribute("bookCreateDTO", bookCreateRequestDTO);
         return "book/book-form";
     }
 

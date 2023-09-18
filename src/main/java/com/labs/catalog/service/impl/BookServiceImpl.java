@@ -2,12 +2,17 @@ package com.labs.catalog.service.impl;
 
 import com.labs.catalog.domain.Author;
 import com.labs.catalog.domain.Book;
+import com.labs.catalog.domain.Category;
+import com.labs.catalog.domain.Publisher;
 import com.labs.catalog.dto.BookCreateDTO;
 import com.labs.catalog.dto.BookDetailDto;
 import com.labs.catalog.dto.BookUpdateRequestDTO;
 import com.labs.catalog.exception.BadRequestException;
 import com.labs.catalog.repository.BookRepository;
+import com.labs.catalog.service.AuthorService;
 import com.labs.catalog.service.BookService;
+import com.labs.catalog.service.CategoryService;
+import com.labs.catalog.service.PublisherService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +24,9 @@ import java.util.stream.Collectors;
 public class BookServiceImpl implements BookService {
 
     private final BookRepository bookRepository;
+    private final AuthorService authorService;
+    private final CategoryService categoryService;
+    private final PublisherService publisherService;
 
     @Override
     public BookDetailDto findBookDetailById(Long id) {
@@ -48,11 +56,14 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public void createNewBook(BookCreateDTO dto) {
-        Author author = new Author();
-        author.setName(dto.getAuthorName());
+        List<Author> authors = authorService.findAuthors(dto.getAuthorId());
+        List<Category> categories = categoryService.findCategories(dto.getCategoryList());
+        Publisher publisher = publisherService.findPublisher(dto.getPublisherId());
 
         Book book = new Book();
-//        book.setAuthor(author);
+        book.setAuthors(authors);
+        book.setCategories(categories);
+        book.setPublisher(publisher);
         book.setTitle(dto.getBookTitle());
         book.setDescription(dto.getDescription());
         bookRepository.save(book);
