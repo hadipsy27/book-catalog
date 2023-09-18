@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 @Aspect
 public class LoggingAspect {
 
-    @Pointcut("execution(* com.labs.catalog.web.BookResource.findBookDetail(..))")
+    @Pointcut("execution(* com.labs.catalog.web.*.*(..))")
     public void restAPI(){}
 
     @Before("restAPI()")

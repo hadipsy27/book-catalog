@@ -1,6 +1,5 @@
 package com.labs.catalog.web;
 
-import com.labs.catalog.domain.Author;
 import com.labs.catalog.dto.AuthorCreateRequestDTO;
 import com.labs.catalog.dto.AuthorResponseDTO;
 import com.labs.catalog.dto.AuthorUpdateRequestDTO;
@@ -16,7 +15,7 @@ import java.util.List;
 @AllArgsConstructor
 @RestController
 @RequestMapping("/v1")
-public class AuthorResouce {
+public class AuthorResource {
 
     private AuthorService authorService;
 
