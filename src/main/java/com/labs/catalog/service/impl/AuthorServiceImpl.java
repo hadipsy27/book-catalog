@@ -21,8 +21,8 @@ public class AuthorServiceImpl implements AuthorService {
     private AuthorRepository authorRepository;
 
     @Override
-    public AuthorResponseDTO findAuthorById(Long id) {
-        Author author = authorRepository.findById(id).orElseThrow(() -> new BadRequestException("Invalid author id: " + id));
+    public AuthorResponseDTO findAuthorBySecureId(String id) {
+        Author author = authorRepository.findBySecureId(id).orElseThrow(() -> new BadRequestException("Invalid author id: " + id));
         AuthorResponseDTO authorResponseDTO = new AuthorResponseDTO();
         authorResponseDTO.setAuthorName(author.getName());
         authorResponseDTO.setBirthDate(author.getBirthDate().toEpochDay());
@@ -42,15 +42,15 @@ public class AuthorServiceImpl implements AuthorService {
     }
 
     @Override
-    public void updateAuthor(Long id, AuthorUpdateRequestDTO dto) {
-        Author author = authorRepository.findById(id).orElseThrow(() -> new BadRequestException("Invalid author id: " + id));
+    public void updateAuthor(String id, AuthorUpdateRequestDTO dto) {
+        Author author = authorRepository.findBySecureId(id).orElseThrow(() -> new BadRequestException("Invalid author id: " + id));
         author.setName(dto.getAuthorName() == null ? author.getName() : dto.getAuthorName());
         author.setBirthDate(dto.getBirthDate() == null ? author.getBirthDate() : LocalDate.ofEpochDay(dto.getBirthDate()));
         authorRepository.save(author);
     }
 
     @Override
-    public void deleteAuthor(Long authorId) {
+    public void deleteAuthor(String authorId) {
         // Hard Delete
         // Author author = authorRepository.findById(authorId).orElseThrow(() -> new BadRequestException("Invalid author id: " + authorId));
         // authorRepository.deleteById(author.getId());
@@ -64,7 +64,7 @@ public class AuthorServiceImpl implements AuthorService {
 
         // Didn't need findByIdDeletedFalse to Soft delete again
         // Because now soft delete implement in Author Domain / Entity
-        Author author = authorRepository.findById(authorId).orElseThrow(() -> new BadRequestException("Invalid author id: " + authorId));
-        authorRepository.deleteById(author.getId());
+        Author author = authorRepository.findBySecureId(authorId).orElseThrow(() -> new BadRequestException("Invalid author id: " + authorId));
+        authorRepository.delete(author);
     }
 }

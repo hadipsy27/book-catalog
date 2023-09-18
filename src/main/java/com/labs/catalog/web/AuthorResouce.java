@@ -15,13 +15,14 @@ import java.util.List;
 
 @AllArgsConstructor
 @RestController
+@RequestMapping("/v1")
 public class AuthorResouce {
 
     private AuthorService authorService;
 
     @GetMapping("/author/{id}/detail")
-    public ResponseEntity<AuthorResponseDTO> findAuthorById(@PathVariable Long id){
-        AuthorResponseDTO result = authorService.findAuthorById(id);
+    public ResponseEntity<AuthorResponseDTO> findAuthorById(@PathVariable String id){
+        AuthorResponseDTO result = authorService.findAuthorBySecureId(id);
         return ResponseEntity.ok().body(result);
     }
 
@@ -32,13 +33,13 @@ public class AuthorResouce {
     }
 
     @PutMapping("/author/{authorId}")
-    public ResponseEntity<Void> updateAuthor(@PathVariable Long authorId, @RequestBody AuthorUpdateRequestDTO dto){
+    public ResponseEntity<Void> updateAuthor(@PathVariable String authorId, @RequestBody AuthorUpdateRequestDTO dto){
         authorService.updateAuthor(authorId, dto);
         return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/author/{authorId}")
-    public ResponseEntity<Void> deleteAuthor(@PathVariable Long authorId){
+    public ResponseEntity<Void> deleteAuthor(@PathVariable String authorId){
         authorService.deleteAuthor(authorId);
         return ResponseEntity.ok().build();
     }

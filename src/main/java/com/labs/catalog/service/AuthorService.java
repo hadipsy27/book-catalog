@@ -8,11 +8,11 @@ import java.util.List;
 
 public interface AuthorService {
 
-    public AuthorResponseDTO findAuthorById(Long id);
+    public AuthorResponseDTO findAuthorBySecureId(String id);
 
     public void createAuthor(List<AuthorCreateRequestDTO> request);
 
-    public void updateAuthor(Long id, AuthorUpdateRequestDTO dto);
+    public void updateAuthor(String id, AuthorUpdateRequestDTO dto);
 
-    public void deleteAuthor(Long authorId);
+    public void deleteAuthor(String authorId);
 }
