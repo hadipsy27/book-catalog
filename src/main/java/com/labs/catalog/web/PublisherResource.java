@@ -1,5 +1,6 @@
 package com.labs.catalog.web;
 
+import com.labs.catalog.annotation.LogThisMethod;
 import com.labs.catalog.dto.PublisherCreateRequestDTO;
 import com.labs.catalog.dto.PublisherListResponseDTO;
 import com.labs.catalog.dto.PublisherUpdateRequestDTO;
@@ -32,6 +33,7 @@ public class PublisherResource {
         return ResponseEntity.ok().build();
     }
 
+    @LogThisMethod
     @GetMapping("/v1/publisher")
     public ResponseEntity<ResultPageResponseDTO<PublisherListResponseDTO>> findPublisherList(
             @RequestParam(name = "pages", required = true, defaultValue = "0") Integer pages,

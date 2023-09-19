@@ -23,7 +23,10 @@ public class LoggingAspect {
     @Pointcut("@args(com.labs.catalog.annotation.LogThisArgs)")
     private void argsAnnotationPointcutExample(){}
 
-    @Before("restAPI() && argsAnnotationPointcutExample()")
+    @Pointcut("@annotation(com.labs.catalog.annotation.LogThisMethod)")
+    private void annotationPointcutExample(){}
+
+    @Before("annotationPointcutExample()")
     public void beforeExecutedLogging(){
         log.info("This is log from aspect");
     }
