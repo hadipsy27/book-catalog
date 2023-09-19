@@ -5,6 +5,7 @@ import com.labs.catalog.dto.PublisherCreateRequestDTO;
 import com.labs.catalog.dto.PublisherListResponseDTO;
 import com.labs.catalog.dto.PublisherUpdateRequestDTO;
 import com.labs.catalog.dto.ResultPageResponseDTO;
+import com.labs.catalog.exception.BadRequestException;
 import com.labs.catalog.service.PublisherService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -41,6 +42,8 @@ public class PublisherResource {
             @RequestParam(name = "sortBy", required = true, defaultValue = "name") String sortBy,
             @RequestParam(name = "direction", required = true, defaultValue = "asc") String direction,
             @RequestParam(name = "publisherName", required = false) String publisherName){
+
+        if (pages<0) throw new BadRequestException("Invalid page number");
         return ResponseEntity.ok().body(publisherService.findPublisherList(pages, limit, sortBy, direction, publisherName));
     }
 }
