@@ -1,8 +1,12 @@
 package com.labs.catalog.aspect;
 
+import com.labs.catalog.dto.BookDetailResponseDTO;
 import lombok.extern.slf4j.Slf4j;
+import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StopWatch;
 
 @Component
 @Slf4j
@@ -42,5 +46,22 @@ public class LoggingAspect {
     @AfterThrowing("annotationPointcutExample()")
     public void afterThrowingExecutedLogging(){
         log.info("This is log from aspect after throwing method executed");
+    }
+
+    @Around("restAPI()")
+    public Object processingTimeLogging(ProceedingJoinPoint joinPoint) throws Throwable {
+        StopWatch stopWatch = new StopWatch();
+
+        try {
+            log.info("Start {}. {} ", joinPoint.getTarget().getClass().getName(), joinPoint.getSignature().getName());
+            return joinPoint.proceed();
+        } finally {
+            stopWatch.start();
+            log.info("Finish {}. {} excution time = {}",
+                    joinPoint.getTarget().getClass().getName(),
+                    joinPoint.getSignature().getName(),
+                    stopWatch.getTotalTimeMillis()
+            );
+        }
     }
 }
