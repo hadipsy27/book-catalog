@@ -5,6 +5,7 @@ import com.labs.catalog.dto.AuthorCreateRequestDTO;
 import com.labs.catalog.dto.AuthorResponseDTO;
 import com.labs.catalog.dto.AuthorUpdateRequestDTO;
 import com.labs.catalog.exception.BadRequestException;
+import com.labs.catalog.exception.ResourceNotFoundException;
 import com.labs.catalog.repository.AuthorRepository;
 import com.labs.catalog.service.AuthorService;
 import lombok.AllArgsConstructor;
@@ -22,7 +23,7 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Override
     public AuthorResponseDTO findAuthorBySecureId(String id) {
-        Author author = authorRepository.findBySecureId(id).orElseThrow(() -> new BadRequestException("Invalid author id: " + id));
+        Author author = authorRepository.findBySecureId(id).orElseThrow(() -> new ResourceNotFoundException("Invalid author id: " + id));
         AuthorResponseDTO authorResponseDTO = new AuthorResponseDTO();
         authorResponseDTO.setAuthorName(author.getName());
         authorResponseDTO.setBirthDate(author.getBirthDate().toEpochDay());
