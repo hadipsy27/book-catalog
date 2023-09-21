@@ -26,7 +26,7 @@ public class AppUser extends AbstractBaseEntity implements UserDetails {
     @Column(name = "password", nullable = false)
     private String password;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER) // Gunakan FetchType.EAGER Apabila terjadi error ketika menggunakan basic login
     @JoinTable(name = "user_role", joinColumns = {
             @JoinColumn(name = "user_id", referencedColumnName = "id")
     }, inverseJoinColumns = {
