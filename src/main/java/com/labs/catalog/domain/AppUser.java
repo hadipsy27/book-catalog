@@ -7,10 +7,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.io.Serial;
 import java.util.Collection;
+import java.util.List;
 
 @Data
 @Entity
-@Table(name = "app_user")
+@Table(name = "app_user", indexes = {@Index(name = "uk_username", columnList = "username")})
 public class AppUser extends AbstractBaseEntity implements UserDetails {
     @Serial
     private static final long serialVersionUID = -7486591533290799884L;
@@ -25,28 +26,36 @@ public class AppUser extends AbstractBaseEntity implements UserDetails {
     @Column(name = "password", nullable = false)
     private String password;
 
+    @ManyToMany
+    @JoinTable(name = "user_role", joinColumns = {
+            @JoinColumn(name = "user_id", referencedColumnName = "id")
+    }, inverseJoinColumns = {
+            @JoinColumn(name = "role_id", referencedColumnName = "id")
+    })
+    private List<Role> roles;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return roles;
     }
 
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isEnabled() {
-        return false;
+        return true;
     }
 }
