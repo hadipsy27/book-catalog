@@ -7,9 +7,10 @@ import com.labs.catalog.dto.PublisherUpdateRequestDTO;
 import com.labs.catalog.dto.ResultPageResponseDTO;
 import com.labs.catalog.exception.BadRequestException;
 import com.labs.catalog.service.PublisherService;
-import jakarta.validation.Valid;
+import javax.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
@@ -20,6 +21,7 @@ public class PublisherResource {
 
     private final PublisherService publisherService;
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/v1/publisher")
     public ResponseEntity<Void> createNewPublisher(@RequestBody @Valid PublisherCreateRequestDTO requestDTO){
         publisherService.createPublisher(requestDTO);
@@ -27,6 +29,7 @@ public class PublisherResource {
         return ResponseEntity.created(URI.create("/v1/publisher")).build();
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/v1/publisher/{publisherId}")
     public ResponseEntity<Void> updatePublisher(@PathVariable String publisherId,
                                                 @RequestBody @Valid PublisherUpdateRequestDTO requestDTO){
@@ -35,6 +38,7 @@ public class PublisherResource {
     }
 
     @LogThisMethod
+    @PreAuthorize("isAuthenticated()")
     @GetMapping("/v1/publisher")
     public ResponseEntity<ResultPageResponseDTO<PublisherListResponseDTO>> findPublisherList(
             @RequestParam(name = "pages", required = true, defaultValue = "0") Integer pages,
