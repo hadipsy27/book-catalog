@@ -1,6 +1,6 @@
 package com.labs.catalog.domain;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 

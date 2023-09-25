@@ -4,7 +4,7 @@ import com.labs.catalog.dto.AuthorCreateRequestDTO;
 import com.labs.catalog.dto.AuthorResponseDTO;
 import com.labs.catalog.dto.AuthorUpdateRequestDTO;
 import com.labs.catalog.service.AuthorService;
-import jakarta.validation.Valid;
+import javax.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

@@ -3,7 +3,7 @@ package com.labs.catalog.controller;
 import com.labs.catalog.dto.BookCreateDTO;
 import com.labs.catalog.dto.BookDetailResponseDTO;
 import com.labs.catalog.service.BookService;
-import jakarta.validation.Valid;
+import javax.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
