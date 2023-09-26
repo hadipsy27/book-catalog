@@ -1,5 +1,6 @@
 package com.labs.catalog.service.impl;
 
+import com.labs.catalog.domain.Address;
 import com.labs.catalog.domain.Author;
 import com.labs.catalog.dto.AuthorCreateRequestDTO;
 import com.labs.catalog.dto.AuthorResponseDTO;
@@ -36,6 +37,17 @@ public class AuthorServiceImpl implements AuthorService {
             Author author = new Author();
             author.setName(dto.getAuthorName());
             author.setBirthDate(LocalDate.ofEpochDay(dto.getBirthDate()));
+
+            List<Address> addresses = dto.getAddresses().stream().map(ad -> {
+                Address address = new Address();
+                address.setCityName(ad.getCityName());
+                address.setStreetName(ad.getStreetName());
+                address.setZipCode(ad.getZipCode());
+                address.setAuthor(author);
+                return address;
+            }).collect(Collectors.toList());
+            author.setAddresses(addresses);
+
             return author;
         }).collect(Collectors.toList());
 
