@@ -17,5 +17,6 @@ public interface BookService {
 
     public void deleteBook(Long bookId);
 
-    ResultPageResponseDTO<BookListResponseDTO> findBookList(Integer page, Integer limit, String sortBy, String direction, String publisherName, String bookTitle);
+    ResultPageResponseDTO<BookListResponseDTO> findBookList(Integer page, Integer limit, String sortBy, String direction,
+                                                            String publisherName, String bookTitle, String authorName);
 }
