@@ -1,8 +1,6 @@
 package com.labs.catalog.service;
 
-import com.labs.catalog.dto.BookCreateDTO;
-import com.labs.catalog.dto.BookDetailResponseDTO;
-import com.labs.catalog.dto.BookUpdateRequestDTO;
+import com.labs.catalog.dto.*;
 
 import java.util.List;
 
@@ -18,4 +16,6 @@ public interface BookService {
     public void updateBook(Long bookId, BookUpdateRequestDTO dto);
 
     public void deleteBook(Long bookId);
+
+    ResultPageResponseDTO<BookListResponseDTO> findBookList(Integer page, Integer limit, String sortBy, String direction, String publisherName, String bookTitle);
 }

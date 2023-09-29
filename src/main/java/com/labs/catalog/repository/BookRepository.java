@@ -1,14 +1,24 @@
 package com.labs.catalog.repository;
 
 import com.labs.catalog.domain.Book;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 import java.util.Optional;
 
 public interface BookRepository extends JpaRepository<Book, Long> {
     public Optional<Book> findById(Long id);
 
+    // SQL  : SELECT b FROM book b where b.secure_id = id;
+    // JPQL : SELECT b FROM Book b where b.secureId = :id;
     Optional<Book> findBySecureId(String secureId);
+
+    // SQL : SELECT b FROM Book b INNER JOIN Publisher p ON p.id = b.publisher_id WHERE p.name = :publisherName AND b.title = :bookTitle;
+    @Query(value = "SELECT b FROM Book b INNER JOIN Publisher p ON p.id = b.publisher.id WHERE " +
+            "LOWER(b.title) LIKE LOWER(CONCAT('%', :bookTitle, '%')) AND LOWER(p.name) LIKE LOWER(CONCAT('%', :publisherName, '%')) ")
+    Page<Book> findBookList(String publisherName, String bookTitle, Pageable pageable);
 
 //    public List<Book> findAll();
 //

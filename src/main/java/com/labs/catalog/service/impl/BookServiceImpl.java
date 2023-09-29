@@ -4,16 +4,19 @@ import com.labs.catalog.domain.Author;
 import com.labs.catalog.domain.Book;
 import com.labs.catalog.domain.Category;
 import com.labs.catalog.domain.Publisher;
-import com.labs.catalog.dto.BookCreateDTO;
-import com.labs.catalog.dto.BookDetailResponseDTO;
-import com.labs.catalog.dto.BookUpdateRequestDTO;
+import com.labs.catalog.dto.*;
 import com.labs.catalog.exception.BadRequestException;
 import com.labs.catalog.repository.BookRepository;
 import com.labs.catalog.service.AuthorService;
 import com.labs.catalog.service.BookService;
 import com.labs.catalog.service.CategoryService;
 import com.labs.catalog.service.PublisherService;
+import com.labs.catalog.util.PaginationUtil;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -83,5 +86,25 @@ public class BookServiceImpl implements BookService {
     @Override
     public void deleteBook(Long bookId) {
         bookRepository.deleteById(bookId);
+    }
+
+    @Override
+    public ResultPageResponseDTO<BookListResponseDTO> findBookList(Integer page, Integer limit, String sortBy,
+                                                                   String direction, String publisherName, String bookTitle) {
+        Sort sort = Sort.by(new Sort.Order(PaginationUtil.getSortBy(direction), sortBy));
+        Pageable pageable = PageRequest.of(page, limit, sort);
+        Page<Book> pageResult = bookRepository.findBookList(bookTitle, publisherName, pageable);
+        List<BookListResponseDTO> result = pageResult.stream().map(book -> {
+            BookListResponseDTO dto = new BookListResponseDTO();
+
+            dto.setId(book.getSecureId());
+            dto.setAuthorNames(book.getAuthors().stream().map(a -> a.getName()).collect(Collectors.toList()));
+            dto.setCategoryCodes(book.getCategories().stream().map(c -> c.getCode()).collect(Collectors.toList()));
+            dto.setTitle(book.getTitle());
+            dto.setPublisherName(book.getPublisher().getName());
+            dto.setDescription(book.getDescription());
+            return dto;
+        }).collect(Collectors.toList());
+        return PaginationUtil.createResultPageDTO(result, pageResult.getTotalElements(), pageResult.getTotalPages());
     }
 }
