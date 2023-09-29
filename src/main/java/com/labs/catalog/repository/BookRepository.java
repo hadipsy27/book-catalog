@@ -16,9 +16,13 @@ public interface BookRepository extends JpaRepository<Book, Long> {
     Optional<Book> findBySecureId(String secureId);
 
     // SQL : SELECT b FROM Book b INNER JOIN Publisher p ON p.id = b.publisher_id WHERE p.name = :publisherName AND b.title = :bookTitle;
-    @Query(value = "SELECT b FROM Book b INNER JOIN Publisher p ON p.id = b.publisher.id WHERE " +
-            "LOWER(b.title) LIKE LOWER(CONCAT('%', :bookTitle, '%')) AND LOWER(p.name) LIKE LOWER(CONCAT('%', :publisherName, '%')) ")
-    Page<Book> findBookList(String publisherName, String bookTitle, Pageable pageable);
+    @Query(value = "SELECT DISTINCT b FROM Book b " +
+            "INNER JOIN Publisher p ON p.id = b.publisher.id " +
+            "INNER JOIN b.authors ba " +
+            "WHERE LOWER(b.title) LIKE LOWER(CONCAT('%', :bookTitle, '%')) " +
+            "AND LOWER(p.name) LIKE LOWER(CONCAT('%', :publisherName, '%')) " +
+            "AND LOWER(ba.name) LIKE LOWER(CONCAT('%', :authorName, '%'))" )
+    Page<Book> findBookList(String publisherName, String bookTitle, String authorName, Pageable pageable);
 
 //    public List<Book> findAll();
 //

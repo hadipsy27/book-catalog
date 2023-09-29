@@ -90,10 +90,11 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public ResultPageResponseDTO<BookListResponseDTO> findBookList(Integer page, Integer limit, String sortBy,
-                                                                   String direction, String publisherName, String bookTitle) {
+                                                                   String direction, String publisherName, String bookTitle,
+                                                                   String authorName) {
         Sort sort = Sort.by(new Sort.Order(PaginationUtil.getSortBy(direction), sortBy));
         Pageable pageable = PageRequest.of(page, limit, sort);
-        Page<Book> pageResult = bookRepository.findBookList(bookTitle, publisherName, pageable);
+        Page<Book> pageResult = bookRepository.findBookList(bookTitle, publisherName, authorName, pageable);
         List<BookListResponseDTO> result = pageResult.stream().map(book -> {
             BookListResponseDTO dto = new BookListResponseDTO();
 

@@ -54,9 +54,10 @@ public class BookResource {
             @RequestParam(name = "sortBy", required = true, defaultValue = "title") String sortBy,
             @RequestParam(name = "direction", required = true, defaultValue = "asc") String direction,
             @RequestParam(name = "bookTitle", required = false, defaultValue = "") String bookTitle,
-            @RequestParam(name = "publisherName", required = false, defaultValue = "") String publisherName
+            @RequestParam(name = "publisherName", required = false, defaultValue = "") String publisherName,
+            @RequestParam(name = "authorName", required = false, defaultValue = "") String authorName
     ){
-        return ResponseEntity.ok().body(bookService.findBookList(page,limit,sortBy,direction,bookTitle,publisherName));
+        return ResponseEntity.ok().body(bookService.findBookList(page,limit,sortBy,direction,bookTitle,publisherName, authorName));
     }
 
     @PutMapping("/v1/book/{bookId}")
