@@ -7,7 +7,6 @@ import com.labs.catalog.dto.CategoryListResponseDTO;
 import com.labs.catalog.dto.ResultPageResponseDTO;
 
 import java.util.List;
-import java.util.Map;
 
 public interface CategoryService {
 
@@ -22,6 +21,4 @@ public interface CategoryService {
     List<Category> findCategories(List<String> categoryCodeList);
 
     List<CategoryListResponseDTO> constructDTO(List<Category> categories);
-
-    Map<Long, List<String>> findCategoriesMap(List<Long> bookIdList);
 }
