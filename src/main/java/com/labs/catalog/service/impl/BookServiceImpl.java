@@ -20,7 +20,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 @AllArgsConstructor
@@ -91,20 +90,16 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public ResultPageResponseDTO<BookListResponseDTO> findBookList(Integer page, Integer limit, String sortBy,
-                                                                   String direction, String publisherName, String bookTitle,
-                                                                   String authorName) {
+                                                                   String direction, String publisherName, String bookTitle) {
         Sort sort = Sort.by(new Sort.Order(PaginationUtil.getSortBy(direction), sortBy));
         Pageable pageable = PageRequest.of(page, limit, sort);
-        Page<Book> pageResult = bookRepository.findBookList(bookTitle, publisherName, authorName, pageable);
-        List<Long> idList = pageResult.stream().map(b -> b.getId()).collect(Collectors.toList());
-        Map<Long, List<String>> categoriesMap = categoryService.findCategoriesMap(idList);
-
+        Page<Book> pageResult = bookRepository.findBookList(bookTitle, publisherName, pageable);
         List<BookListResponseDTO> result = pageResult.stream().map(book -> {
             BookListResponseDTO dto = new BookListResponseDTO();
 
             dto.setId(book.getSecureId());
             dto.setAuthorNames(book.getAuthors().stream().map(a -> a.getName()).collect(Collectors.toList()));
-            dto.setCategoryCodes(categoriesMap.get(book.getId()));
+            dto.setCategoryCodes(book.getCategories().stream().map(c -> c.getCode()).collect(Collectors.toList()));
             dto.setTitle(book.getTitle());
             dto.setPublisherName(book.getPublisher().getName());
             dto.setDescription(book.getDescription());
