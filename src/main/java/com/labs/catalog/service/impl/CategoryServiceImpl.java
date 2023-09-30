@@ -3,6 +3,7 @@ package com.labs.catalog.service.impl;
 import com.labs.catalog.domain.Category;
 import com.labs.catalog.dto.CategoryCreateAndUpdateRequestDTO;
 import com.labs.catalog.dto.CategoryListResponseDTO;
+import com.labs.catalog.dto.CategoryQueryDTO;
 import com.labs.catalog.dto.ResultPageResponseDTO;
 import com.labs.catalog.exception.BadRequestException;
 import com.labs.catalog.repository.CategoryRepository;
@@ -17,7 +18,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -75,5 +79,23 @@ public class CategoryServiceImpl implements CategoryService {
             responseDTO.setDescription(c.getDescription());
             return responseDTO;
         }).collect(Collectors.toList());
+    }
+
+    @Override
+    public Map<Long, List<String>> findCategoriesMap(List<Long> bookIdList) {
+        List<CategoryQueryDTO> categoryByBookIdLIst = categoryRepository.findCategoryByBookIdLIst(bookIdList);
+        Map<Long, List<String>> categoryMaps = new HashMap<>();
+        List<String> categoryCodeList;
+
+        for (CategoryQueryDTO c : categoryByBookIdLIst){
+            if(!categoryMaps.containsKey(c.getBookId())){
+                categoryCodeList = new ArrayList<>();
+            }else {
+                categoryCodeList = categoryMaps.get(c.getBookId());
+            }
+            categoryCodeList.add(c.getCategoryCode());
+            categoryMaps.put(c.getBookId(), categoryCodeList);
+        }
+        return categoryMaps;
     }
 }
