@@ -6,6 +6,7 @@ import com.labs.catalog.dto.AuthorResponseDTO;
 import com.labs.catalog.dto.AuthorUpdateRequestDTO;
 
 import java.util.List;
+import java.util.Map;
 
 public interface AuthorService {
 
@@ -20,4 +21,6 @@ public interface AuthorService {
     public List<Author> findAuthors(List<String> authorIdList);
 
     List<AuthorResponseDTO> constructDTO(List<Author> authors);
+
+    Map<Long, List<String>> findAuthorMaps(List<Long> bookIdList);
 }

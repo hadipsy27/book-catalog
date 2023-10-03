@@ -3,6 +3,7 @@ package com.labs.catalog.service.impl;
 import com.labs.catalog.domain.Address;
 import com.labs.catalog.domain.Author;
 import com.labs.catalog.dto.AuthorCreateRequestDTO;
+import com.labs.catalog.dto.AuthorQueryDTO;
 import com.labs.catalog.dto.AuthorResponseDTO;
 import com.labs.catalog.dto.AuthorUpdateRequestDTO;
 import com.labs.catalog.exception.BadRequestException;
@@ -10,9 +11,12 @@ import com.labs.catalog.exception.ResourceNotFoundException;
 import com.labs.catalog.repository.AuthorRepository;
 import com.labs.catalog.service.AuthorService;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
@@ -20,6 +24,7 @@ import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
+@Slf4j
 public class AuthorServiceImpl implements AuthorService {
 
     private AuthorRepository authorRepository;
@@ -111,5 +116,25 @@ public class AuthorServiceImpl implements AuthorService {
             responseDTO.setBirthDate(a.getBirthDate().toEpochDay());
             return responseDTO;
         })).collect(Collectors.toList());
+    }
+
+    @Override
+    public Map<Long, List<String>> findAuthorMaps(List<Long> bookIdList) {
+        List<AuthorQueryDTO> authorQueryList = authorRepository.findAuthorsByBookIdList(bookIdList);
+        Map<Long, List<String>> authorMap = new HashMap<>();
+        List<String> authorList = null;
+
+        for (AuthorQueryDTO a : authorQueryList){
+
+            // Validasi supaya tidak terjadi duplikasi data
+            if(!authorMap.containsKey(a.getBookId())){
+                authorList = new ArrayList<>();
+            } else {
+                authorList = authorMap.get(a.getBookId());
+            }
+            authorList.add(a.getAuthorName());
+            authorMap.put(a.getBookId(), authorList);
+        }
+        return authorMap;
     }
 }
