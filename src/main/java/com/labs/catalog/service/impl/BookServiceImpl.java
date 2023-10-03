@@ -96,14 +96,16 @@ public class BookServiceImpl implements BookService {
         Sort sort = Sort.by(new Sort.Order(PaginationUtil.getSortBy(direction), sortBy));
         Pageable pageable = PageRequest.of(page, limit, sort);
         Page<Book> pageResult = bookRepository.findBookList(bookTitle, publisherName, authorName, pageable);
+
         List<Long> idList =  pageResult.stream().map(book -> book.getId()).collect(Collectors.toList());
         Map<Long, List<String>> categoriesMap = categoryService.findCategoriesMap(idList);
+        Map<Long, List<String>> authorMaps = authorService.findAuthorMaps(idList);
 
         List<BookListResponseDTO> result = pageResult.stream().map(book -> {
             BookListResponseDTO dto = new BookListResponseDTO();
 
             dto.setId(book.getSecureId());
-            dto.setAuthorNames(book.getAuthors().stream().map(a -> a.getName()).collect(Collectors.toList()));
+            dto.setAuthorNames(authorMaps.get(book.getId()));
             dto.setCategoryCodes(categoriesMap.get(book.getId()));
             dto.setTitle(book.getTitle());
             dto.setPublisherName(book.getPublisher().getName());
