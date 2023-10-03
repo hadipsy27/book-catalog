@@ -11,7 +11,6 @@ import com.labs.catalog.exception.ResourceNotFoundException;
 import com.labs.catalog.repository.AuthorRepository;
 import com.labs.catalog.service.AuthorService;
 import lombok.AllArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -24,7 +23,6 @@ import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
-@Slf4j
 public class AuthorServiceImpl implements AuthorService {
 
     private AuthorRepository authorRepository;
