@@ -8,13 +8,17 @@ import com.labs.catalog.dto.ResultPageResponseDTO;
 import com.labs.catalog.exception.BadRequestException;
 import com.labs.catalog.service.PublisherService;
 import javax.validation.Valid;
+import javax.validation.constraints.Size;
+
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 
+@Validated // Untuk memvalidasi argument
 @RestController
 @AllArgsConstructor
 public class PublisherResource {
@@ -31,7 +35,7 @@ public class PublisherResource {
 
     @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/v1/publisher/{publisherId}")
-    public ResponseEntity<Void> updatePublisher(@PathVariable String publisherId,
+    public ResponseEntity<Void> updatePublisher(@PathVariable @Size(max = 36, min = 36, message = "Publisher.id.is.not.uuid") String publisherId,
                                                 @RequestBody @Valid PublisherUpdateRequestDTO requestDTO){
         publisherService.updatePublisher(publisherId, requestDTO);
         return ResponseEntity.ok().build();
