@@ -15,21 +15,21 @@ import java.util.Date;
 import java.util.stream.Collectors;
 
 @AllArgsConstructor
-public class JwtTokeFactory {
+public class JwtTokenFactory {
 
     private final Key secret;
 
     public AccessJWTToken createAccessJWTToken(String username, Collection<? extends GrantedAuthority> authorities) {
 
-        Claims claims = (Claims) Jwts.claims().setSubject(username);
-        claims.put("scope", authorities.stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()));
+        Claims claims = Jwts.claims().setSubject(username);
+        claims.put("scope", authorities.stream().map(a -> a.getAuthority()).collect(Collectors.toList()));
         LocalDateTime currentTime = LocalDateTime.now();
         LocalDateTime expiredDate = currentTime.plusMinutes(15);
 
         Date currentTimeDate = Date.from(currentTime.atZone(ZoneId.of("Asia/Jakarta")).toInstant());
         Date expiredTimeDate = Date.from(expiredDate.atZone(ZoneId.of("Asia/Jakarta")).toInstant());
 
-        String token = Jwts.builder().claims(claims)
+        String token = Jwts.builder().setClaims(claims)
                 .setIssuer("http://github.com/hadipsy27").setIssuedAt(currentTimeDate)
                 .setExpiration(expiredTimeDate)
                 .signWith(secret, SignatureAlgorithm.HS256).compact();

@@ -5,6 +5,7 @@ import com.labs.catalog.security.filter.UsernamePasswordAuthProcessingFilter;
 import com.labs.catalog.security.handler.UsernamePasswordAuthFailureHandler;
 import com.labs.catalog.security.handler.UsernamePasswordAuthSuccessHandler;
 import com.labs.catalog.security.provider.UsernamePasswordAuthProvider;
+import com.labs.catalog.security.util.JwtTokenFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -33,8 +34,8 @@ public class SecurityConfig {
     private UsernamePasswordAuthProvider usernamePasswordAuthProvider;
 
     @Bean
-    public AuthenticationSuccessHandler successHandler(ObjectMapper objectMapper){
-        return new UsernamePasswordAuthSuccessHandler(objectMapper);
+    public AuthenticationSuccessHandler successHandler(ObjectMapper objectMapper, JwtTokenFactory jwtTokenFactory){
+        return new UsernamePasswordAuthSuccessHandler(objectMapper, jwtTokenFactory);
     }
 
     @Bean
