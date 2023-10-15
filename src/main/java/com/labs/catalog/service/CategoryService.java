@@ -3,6 +3,7 @@ package com.labs.catalog.service;
 
 import com.labs.catalog.domain.Category;
 import com.labs.catalog.dto.CategoryCreateAndUpdateRequestDTO;
+import com.labs.catalog.dto.CategoryCreateUpdateRecordDTO;
 import com.labs.catalog.dto.CategoryListResponseDTO;
 import com.labs.catalog.dto.ResultPageResponseDTO;
 
@@ -11,7 +12,7 @@ import java.util.Map;
 
 public interface CategoryService {
 
-    public void createAndUpdateCategory(CategoryCreateAndUpdateRequestDTO dto);
+    public void createAndUpdateCategory(CategoryCreateUpdateRecordDTO dto);
 
     ResultPageResponseDTO<CategoryListResponseDTO> findCategoryList(Integer pages,
                                                                     Integer limit,

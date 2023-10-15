@@ -1,10 +1,7 @@
 package com.labs.catalog.service.impl;
 
 import com.labs.catalog.domain.Category;
-import com.labs.catalog.dto.CategoryCreateAndUpdateRequestDTO;
-import com.labs.catalog.dto.CategoryListResponseDTO;
-import com.labs.catalog.dto.CategoryQueryDTO;
-import com.labs.catalog.dto.ResultPageResponseDTO;
+import com.labs.catalog.dto.*;
 import com.labs.catalog.exception.BadRequestException;
 import com.labs.catalog.repository.CategoryRepository;
 import com.labs.catalog.service.CategoryService;
@@ -32,13 +29,13 @@ public class CategoryServiceImpl implements CategoryService {
     private CategoryRepository categoryRepository;
 
     @Override
-    public void createAndUpdateCategory(CategoryCreateAndUpdateRequestDTO dto) {
-        final Category category = categoryRepository.findByCode(dto.getCode().toLowerCase()).orElse(new Category());
+    public void createAndUpdateCategory(CategoryCreateUpdateRecordDTO dto) {
+        final Category category = categoryRepository.findByCode(dto.code().toLowerCase()).orElse(new Category());
         if (category.getCode() == null){
-            category.setCode(dto.getCode().toLowerCase()); // New data
+            category.setCode(dto.code().toLowerCase()); // New data
         }
-        category.setName(dto.getName());
-        category.setDescription(dto.getDescription());
+        category.setName(dto.name());
+        category.setDescription(dto.description());
 
         categoryRepository.save(category);
     }
