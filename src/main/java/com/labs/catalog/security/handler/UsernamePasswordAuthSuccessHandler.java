@@ -2,6 +2,7 @@ package com.labs.catalog.security.handler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
@@ -15,6 +16,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @AllArgsConstructor
+@Configuration
 public class UsernamePasswordAuthSuccessHandler implements AuthenticationSuccessHandler {
 
     private final ObjectMapper objectMapper;

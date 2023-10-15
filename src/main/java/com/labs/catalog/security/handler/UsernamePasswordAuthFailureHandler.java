@@ -2,6 +2,8 @@ package com.labs.catalog.security.handler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
@@ -14,8 +16,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 @AllArgsConstructor
+@Configuration
 public class UsernamePasswordAuthFailureHandler implements AuthenticationFailureHandler {
 
+    @Autowired
     private final ObjectMapper objectMapper;
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,

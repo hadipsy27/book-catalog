@@ -1,5 +1,6 @@
 package com.labs.catalog.config;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.labs.catalog.domain.Author;
 import com.labs.catalog.domain.Book;
 import com.labs.catalog.repository.BookRepository;
@@ -55,6 +56,11 @@ public class AppConfig {
     @Bean
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public ObjectMapper objectMapper(){
+        return new ObjectMapper();
     }
 
 }
