@@ -4,6 +4,7 @@ import com.labs.catalog.dto.CategoryCreateAndUpdateRequestDTO;
 import com.labs.catalog.dto.CategoryCreateUpdateRecordDTO;
 import com.labs.catalog.dto.ResultPageResponseDTO;
 import com.labs.catalog.service.CategoryService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +13,7 @@ import java.net.URI;
 
 @RestController
 @AllArgsConstructor
+@SecurityRequirement(name = "bearerAuth")
 public class CategoryResource {
 
     private final CategoryService categoryService;
