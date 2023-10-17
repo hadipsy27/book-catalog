@@ -1,0 +1,1375 @@
+{
+	"info": {
+		"_postman_id": "2494e70a-482b-44f2-bcb6-7961d12bc1aa",
+		"name": "Spring from zero",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "16762865"
+	},
+	"item": [
+		{
+			"name": "Author",
+			"item": [
+				{
+					"name": "Get Author Detail",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "hadi",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "test123",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8092/v1/author/2f64d289-936f-4185-8838-17afa62cece3/detail",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8092",
+							"path": [
+								"v1",
+								"author",
+								"2f64d289-936f-4185-8838-17afa62cece3",
+								"detail"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get Author Detail",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8092/v1/author/2f64d289-936f-4185-8838-17afa62cece3/detail",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8092",
+									"path": [
+										"v1",
+										"author",
+										"2f64d289-936f-4185-8838-17afa62cece3",
+										"detail"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 20 Sep 2023 09:28:43 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"author_name\": \"Test Author Name\",\n    \"birth_date\": -31771\n}"
+						},
+						{
+							"name": "Get Author Detail - Error",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8092/v1/author/1231231/detail",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8092",
+									"path": [
+										"v1",
+										"author",
+										"1231231",
+										"detail"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 20 Sep 2023 09:28:57 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"timestamp\": \"2023-09-20T09:28:57.385+00:00\",\n    \"message\": \"Data not found\",\n    \"errorCode\": 5,\n    \"details\": [\n        \"Invalid author id: 1231231\"\n    ],\n    \"status\": \"BAD_REQUEST\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Delete Author",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8092/v1/author/7d2da52e-edbd-4943-b4d8-ad71b5d1a4bc",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8092",
+							"path": [
+								"v1",
+								"author",
+								"7d2da52e-edbd-4943-b4d8-ad71b5d1a4bc"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create new Author",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "test123",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n   {\r\n      \"author_name\": \"Test address 1\",\r\n      \"birth_date\": -31771,\r\n      \"addresses\": [\r\n         {\r\n            \"street_name\": \"Ini Street name\",\r\n            \"city_name\": \"Ini city name\",\r\n            \"zip_code\": \"12345\"\r\n         }\r\n      ]\r\n   },\r\n   {\r\n      \"author_name\": \"Test address 2\",\r\n      \"birth_date\": -31771,\r\n      \"addresses\": [\r\n         {\r\n            \"street_name\": \"Ini Street name\",\r\n            \"city_name\": \"Ini city name\",\r\n            \"zip_code\": \"12345\"\r\n         }\r\n      ]\r\n   }\r\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8092/v1/author",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8092",
+							"path": [
+								"v1",
+								"author"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create new Author Validated",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "test123",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n   {\r\n      \"author_name\": \"Hadi\",\r\n      \"birth_date\": -31771,\r\n      \"addresses\": [\r\n         {\r\n            \"street_name\": \"Ini Street name\",\r\n            \"city_name\": \"Ini city name\",\r\n            \"zip_code\": \"12345\"\r\n         }\r\n      ]\r\n   }\r\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8092/v1/author",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8092",
+							"path": [
+								"v1",
+								"author"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Author",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "test123",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"author_name\": \"Test Address update q\",\r\n   \"birth_date\": -31772,\r\n   \"addresses\": [\r\n      {\r\n         \"address_id\": 1,\r\n         \"street_name\": \"Ini street_name name q\",\r\n         \"city_name\": \"Ini city_name name\",\r\n         \"zip_code\": \"12345\"\r\n      }\r\n   ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8092/v1/author/83985602-0fe1-4b65-9971-693ad412c0af",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8092",
+							"path": [
+								"v1",
+								"author",
+								"83985602-0fe1-4b65-9971-693ad412c0af"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create new Author Batch",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n   {\r\n   \"author_name\": \"Hadi Prasetyo b\",\r\n   \"birth_date\": -31771\r\n   },\r\n   {\r\n   \"author_name\": \"Hadi b\",\r\n   \"birth_date\": -31771\r\n   },\r\n   {\r\n   \"author_name\": \"Prasetyo b\",\r\n   \"birth_date\": -31771\r\n   },\r\n   {\r\n   \"author_name\": \"Test batch\",\r\n   \"birth_date\": -31771\r\n   }\r\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8092/v1/author",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8092",
+							"path": [
+								"v1",
+								"author"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Publisher",
+			"item": [
+				{
+					"name": "Create new publisher",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "hadi",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "test123",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"publisher_name\": \"Toko Buku 2\",\r\n   \"company_name\": \"PT.Toko Buku 2\",\r\n   \"address\": \"Toko Buku 2\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8092/v1/publisher",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8092",
+							"path": [
+								"v1",
+								"publisher"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create new publisher - Error",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "hadi",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "test123",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"publisher_name\": \"\",\r\n   \"company_name\": \"\",\r\n   \"address\": \"\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8092/v1/publisher",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8092",
+							"path": [
+								"v1",
+								"publisher"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Create new publisher - Error",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n   \"publisher_name\": \"Gramed tutup\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8092/v1/publisher",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8092",
+									"path": [
+										"v1",
+										"publisher"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 20 Sep 2023 09:14:06 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"timestamp\": \"2023-09-20T09:14:05.991+00:00\",\n    \"message\": \"Invalid data\",\n    \"errorCode\": 1,\n    \"details\": [\n        \"must not be blank\"\n    ],\n    \"status\": \"BAD_REQUEST\"\n}"
+						},
+						{
+							"name": "Blank - Create new publisher - Error",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n   \"publisher_name\": \"\",\r\n   \"company_name\": \"\",\r\n   \"address\": \"\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8092/v1/publisher",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8092",
+									"path": [
+										"v1",
+										"publisher"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 05 Oct 2023 04:14:56 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"timestamp\": \"2023-10-05T04:14:56.266+00:00\",\n    \"message\": \"Invalid data\",\n    \"errorCode\": 1,\n    \"details\": [\n        \"must not be blank\",\n        \"must not be blank\"\n    ],\n    \"status\": \"BAD_REQUEST\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Update publisher",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "test123",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"publisher_name\": \"Gramed buka tutup\",\r\n   \"company_name\": \"PT.Gramed buka\",\r\n   \"address\": \"Tidak ditemukan kalo tidak dicari\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8092/v1/publisher/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8092",
+							"path": [
+								"v1",
+								"publisher",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Publisher with pagination",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInNjb3BlcyI6WyJST0xFX0FETUlOIiwiUk9MRV9SRUFERVIiXSwiaXNzIjoiaHR0cDovL2dpdGh1Yi5jb20vaGFkaXBzeTI3IiwiaWF0IjoxNjk3NTE5MDU5LCJleHAiOjE2OTc1MTk5NTl9.QXhs0zVHkwqrc25Vy-txG4irDRgmslQCvI-YmqQ7jqo",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8092/v1/publisher?pages=0&limit=13&sortBy=companyName&direction=asc",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8092",
+							"path": [
+								"v1",
+								"publisher"
+							],
+							"query": [
+								{
+									"key": "pages",
+									"value": "0"
+								},
+								{
+									"key": "limit",
+									"value": "13"
+								},
+								{
+									"key": "sortBy",
+									"value": "companyName"
+								},
+								{
+									"key": "direction",
+									"value": "asc"
+								},
+								{
+									"key": "publisherName",
+									"value": "Gramed ",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get Publisher with pagination - All Data",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8092/v1/publisher?pages=0&limit=13&sortBy=companyName&direction=asc",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8092",
+									"path": [
+										"v1",
+										"publisher"
+									],
+									"query": [
+										{
+											"key": "pages",
+											"value": "0"
+										},
+										{
+											"key": "limit",
+											"value": "13"
+										},
+										{
+											"key": "sortBy",
+											"value": "companyName"
+										},
+										{
+											"key": "direction",
+											"value": "asc"
+										},
+										{
+											"key": "publisherName",
+											"value": "Gramed ",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 20 Sep 2023 09:15:19 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"result\": [\n        {\n            \"publisher_id\": \"dfc97bdd-2a4b-41b5-9c18-5ca1c487178c\",\n            \"publisher_name\": \"Gramed buka tutup\",\n            \"company_name\": \"PT.Gramed buka\"\n        },\n        {\n            \"publisher_id\": \"4728ef44-f71e-473f-8a82-2f112be0405c\",\n            \"publisher_name\": \"Gramed Buka aja\",\n            \"company_name\": \"PT.Gramed Buka aja\"\n        },\n        {\n            \"publisher_id\": \"00fb769d-9c9c-4d4a-a88f-1194ceff35d8\",\n            \"publisher_name\": \"Ini Publisher 1\",\n            \"company_name\": \"PT.Publisher 1\"\n        },\n        {\n            \"publisher_id\": \"b06a91eb-c33d-440f-8fe3-df2e8b7e0406\",\n            \"publisher_name\": \"Ini Publisher 10\",\n            \"company_name\": \"PT.Publisher 10\"\n        },\n        {\n            \"publisher_id\": \"a9dfc8eb-a849-4586-967a-ab5e0f1bd71e\",\n            \"publisher_name\": \"Ini Publisher 11\",\n            \"company_name\": \"PT.Publisher 11\"\n        },\n        {\n            \"publisher_id\": \"e357b2dc-c9bf-4c10-b825-6ee5599e8858\",\n            \"publisher_name\": \"Ini Publisher 2\",\n            \"company_name\": \"PT.Publisher 2\"\n        },\n        {\n            \"publisher_id\": \"e2f2994d-59ed-4cd9-8037-b01a121abee4\",\n            \"publisher_name\": \"Ini Publisher 3\",\n            \"company_name\": \"PT.Publisher 3\"\n        },\n        {\n            \"publisher_id\": \"642ceda9-98cd-4561-aa86-88aea4c91bf3\",\n            \"publisher_name\": \"Ini Publisher 4\",\n            \"company_name\": \"PT.Publisher 4\"\n        },\n        {\n            \"publisher_id\": \"385d0ad8-8106-4a65-a427-9a3064e28a32\",\n            \"publisher_name\": \"Ini Publisher 5\",\n            \"company_name\": \"PT.Publisher 5\"\n        },\n        {\n            \"publisher_id\": \"257c2efa-d56d-445d-b8c0-e18d89fdd905\",\n            \"publisher_name\": \"Ini Publisher 6\",\n            \"company_name\": \"PT.Publisher 6\"\n        },\n        {\n            \"publisher_id\": \"296b958e-7ed2-494c-946f-9d08146c39a9\",\n            \"publisher_name\": \"Ini Publisher 7\",\n            \"company_name\": \"PT.Publisher 7\"\n        },\n        {\n            \"publisher_id\": \"8c67a5b3-5cf9-4e23-9ec0-7e9f8242d556\",\n            \"publisher_name\": \"Ini Publisher 8\",\n            \"company_name\": \"PT.Publisher 8\"\n        },\n        {\n            \"publisher_id\": \"7eaf0973-e3fe-480a-b1a2-42fcf91faf88\",\n            \"publisher_name\": \"Ini Publisher 9\",\n            \"company_name\": \"PT.Publisher 9\"\n        }\n    ],\n    \"pages\": 1,\n    \"elements\": 13\n}"
+						},
+						{
+							"name": "Get Publisher with pagination",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8092/v1/publisher?pages=0&limit=13&sortBy=companyName&direction=asc&publisherName=Gramed ",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8092",
+									"path": [
+										"v1",
+										"publisher"
+									],
+									"query": [
+										{
+											"key": "pages",
+											"value": "0"
+										},
+										{
+											"key": "limit",
+											"value": "13"
+										},
+										{
+											"key": "sortBy",
+											"value": "companyName"
+										},
+										{
+											"key": "direction",
+											"value": "asc"
+										},
+										{
+											"key": "publisherName",
+											"value": "Gramed "
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 20 Sep 2023 09:15:08 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"result\": [\n        {\n            \"publisher_id\": \"dfc97bdd-2a4b-41b5-9c18-5ca1c487178c\",\n            \"publisher_name\": \"Gramed buka tutup\",\n            \"company_name\": \"PT.Gramed buka\"\n        },\n        {\n            \"publisher_id\": \"4728ef44-f71e-473f-8a82-2f112be0405c\",\n            \"publisher_name\": \"Gramed Buka aja\",\n            \"company_name\": \"PT.Gramed Buka aja\"\n        }\n    ],\n    \"pages\": 1,\n    \"elements\": 2\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Category",
+			"item": [
+				{
+					"name": "Get Category with pagination",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8092/v1/category?pages=0&limit=13&sortBy=name&direction=asc&categoryName=sast",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8092",
+							"path": [
+								"v1",
+								"category"
+							],
+							"query": [
+								{
+									"key": "pages",
+									"value": "0"
+								},
+								{
+									"key": "limit",
+									"value": "13"
+								},
+								{
+									"key": "sortBy",
+									"value": "name"
+								},
+								{
+									"key": "direction",
+									"value": "asc"
+								},
+								{
+									"key": "categoryName",
+									"value": "sast",
+									"description": "Pencarian berdasarkan nama category"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create New Category Or Update",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "hadi",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "test123",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"code\": \"sains\",\r\n   \"name\" : \"Sains & Teknologi\",\r\n   \"description\": \"Buku Sains\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8092/v1/category",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8092",
+							"path": [
+								"v1",
+								"category"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Book",
+			"item": [
+				{
+					"name": "Books By Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8092/v1/book/d812814a-ffd3-4954-8b59-1fa30f65122e",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8092",
+							"path": [
+								"v1",
+								"book",
+								"d812814a-ffd3-4954-8b59-1fa30f65122e"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create A new Book",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"book_title\": \" Authors, cateogiries\",\r\n   \"author_id\": [\r\n      \"6816798f-51b8-4789-942e-c2382dc540df\",\r\n      \"b2aee7af-b47c-403e-b6da-cd0c70115310\",\r\n      \"8ac2ab89-49ed-47bb-8486-e60f76c5e496\"\r\n   ],\r\n   \"category_list\": [\r\n      \"sas\",\r\n      \"qa\",\r\n      \"aa\",\r\n      \"fic\"\r\n   ],\r\n   \"publisher_id\": \"dfc97bdd-2a4b-41b5-9c18-5ca1c487178c\",\r\n   \"synopsis\": \"Connection:5, Time:4, Success:True, Type:Prepared, Batch:False, QuerySize:1, BatchSize:0, Query\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8092/book",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8092",
+							"path": [
+								"book"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update A new Book",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"book_title\": \"test\",\r\n   \"synopsis\": \"test\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8092/book/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8092",
+							"path": [
+								"book",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Book",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"book_title\": \" Horas\",\r\n   \"author_name\" : \"Gibran\",\r\n   \"synopsis\": \"OKE\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8092/book/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8092",
+							"path": [
+								"book",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "HTML Book List",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8092/book/list",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8092",
+							"path": [
+								"book",
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Books",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInNjb3BlcyI6WyJST0xFX0FETUlOIiwiUk9MRV9SRUFERVIiXSwiaXNzIjoiaHR0cDovL2dpdGh1Yi5jb20vaGFkaXBzeTI3IiwiaWF0IjoxNjk3NTE5MDU5LCJleHAiOjE2OTc1MTk5NTl9.QXhs0zVHkwqrc25Vy-txG4irDRgmslQCvI-YmqQ7jqo",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8092/v1/book",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8092",
+							"path": [
+								"v1",
+								"book"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Books with Pagination",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInNjb3BlcyI6WyJST0xFX0FETUlOIiwiUk9MRV9SRUFERVIiXSwiaXNzIjoiaHR0cDovL2dpdGh1Yi5jb20vaGFkaXBzeTI3IiwiaWF0IjoxNjk3NTI0OTQ1LCJleHAiOjE2OTc1MjU4NDV9.66638AR6E-NtiISCqZLOsE1bM3u3-N4DPEa01Dy6AXI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8092/v2/books?authorName=Prasetyo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8092",
+							"path": [
+								"v2",
+								"books"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "10",
+									"disabled": true
+								},
+								{
+									"key": "direction",
+									"value": "asc",
+									"disabled": true
+								},
+								{
+									"key": "bookTitle",
+									"value": "categ",
+									"disabled": true
+								},
+								{
+									"key": "publisherName",
+									"value": "gramed",
+									"disabled": true
+								},
+								{
+									"key": "authorName",
+									"value": "Prasetyo"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Books with Pagination",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8092/v2/books",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8092",
+									"path": [
+										"v2",
+										"books"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "0",
+											"disabled": true
+										},
+										{
+											"key": "limit",
+											"value": "10",
+											"disabled": true
+										},
+										{
+											"key": "direction",
+											"value": "asc",
+											"disabled": true
+										},
+										{
+											"key": "bookTitle",
+											"value": "categ",
+											"disabled": true
+										},
+										{
+											"key": "publisherName",
+											"value": "gramed",
+											"disabled": true
+										},
+										{
+											"key": "authorName",
+											"value": "Prasetyo",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 01 Oct 2023 10:27:17 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"result\": [\n        {\n            \"id\": \"d812814a-ffd3-4954-8b59-1fa30f65122e\",\n            \"title\": \" Authors, cateogiries\",\n            \"description\": \"Connection:5, Time:4, Success:True, Type:Prepared, Batch:False, QuerySize:1, BatchSize:0, Query\",\n            \"publisher_name\": \"Gramed buka tutup\",\n            \"category_codes\": [\n                \"fic\",\n                \"sas\",\n                \"aa\",\n                \"qa\"\n            ],\n            \"author_names\": [\n                \"Test Ephoc\",\n                \"Hadi b\",\n                \"Prasetyo b\"\n            ]\n        },\n        {\n            \"id\": \"3bd56a7c-8f07-4ec6-9e18-495b670cc639\",\n            \"title\": \" The Black Mamboo\",\n            \"description\": \"Buku ini tentang black mambo, yang makan eskrim dan es balon mamboo padahal dia tidak mambuu seperti eskrim mamboo yang mambuu es di campur krim. jadilah koko cream yang mamboo\",\n            \"publisher_name\": \"Gramed buka tutup\",\n            \"category_codes\": [\n                \"fic\"\n            ],\n            \"author_names\": [\n                \"Test Author Name\"\n            ]\n        },\n        {\n            \"id\": \"cc00032e-3fd1-4926-a115-9e509413613a\",\n            \"title\": \" The Categories\",\n            \"description\": \"Connection:5, Time:4, Success:True, Type:Prepared, Batch:False, QuerySize:1, BatchSize:0, Query\",\n            \"publisher_name\": \"Gramed buka tutup\",\n            \"category_codes\": [\n                \"fic\",\n                \"aa\"\n            ],\n            \"author_names\": [\n                \"Test Author Name\",\n                \"Prasetyo b\"\n            ]\n        },\n        {\n            \"id\": \"d1d5986c-f9d1-45ec-ae2d-15951eb494f3\",\n            \"title\": \" The Categoty\",\n            \"description\": \"Connection:5, Time:4, Success:True, Type:Prepared, Batch:False, QuerySize:1, BatchSize:0, Query\",\n            \"publisher_name\": \"Gramed buka tutup\",\n            \"category_codes\": [\n                \"aa\"\n            ],\n            \"author_names\": [\n                \"Test Author Name\",\n                \"Prasetyo b\"\n            ]\n        },\n        {\n            \"id\": \"32624e55-cab9-4672-97f9-fdf321cd96eb\",\n            \"title\": \" The Loggers\",\n            \"description\": \"Connection:5, Time:4, Success:True, Type:Prepared, Batch:False, QuerySize:1, BatchSize:0, Query\",\n            \"publisher_name\": \"Gramed buka tutup\",\n            \"category_codes\": [\n                \"sas\"\n            ],\n            \"author_names\": [\n                \"Test Author Name\",\n                \"Prasetyo b\"\n            ]\n        }\n    ],\n    \"pages\": 1,\n    \"elements\": 5\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "New Request",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "test123",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8092/v1/user",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8092",
+							"path": [
+								"v1",
+								"user"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"username\": \"admin\",\r\n   \"password\": \"test123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8092/v1/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8092",
+							"path": [
+								"v1",
+								"login"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Login Req",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n   \"username\": \"admin\",\r\n   \"password\": \"test123\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8092/v1/login",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8092",
+									"path": [
+										"v1",
+										"login"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json;charset=ISO-8859-1"
+								},
+								{
+									"key": "Content-Length",
+									"value": "240"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 15 Oct 2023 15:39:24 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"token\": \"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInNjb3BlIjpbIlJPTEVfQURNSU4iLCJST0xFX1JFQURFUiJdLCJpc3MiOiJodHRwOi8vZ2l0aHViLmNvbS9oYWRpcHN5MjciLCJpYXQiOjE2OTczODQzNjQsImV4cCI6MTY5NzM4NTI2NH0.xsmPKuZwv7sen7P7dp1qbET5eEUEtfNFMzQZxMV6rW4\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "hello",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8092/hello",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8092",
+					"path": [
+						"hello"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
