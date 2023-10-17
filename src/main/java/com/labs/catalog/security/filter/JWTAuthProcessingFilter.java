@@ -23,7 +23,7 @@ public class JWTAuthProcessingFilter extends AbstractAuthenticationProcessingFil
     private final TokenExtractor tokenExtractor;
     private final AuthenticationFailureHandler failureHandler;
 
-    protected JWTAuthProcessingFilter(RequestMatcher requiresAuthenticationRequestMatcher,
+    public JWTAuthProcessingFilter(RequestMatcher requiresAuthenticationRequestMatcher,
                                       TokenExtractor tokenExtractor, AuthenticationFailureHandler failureHandler) {
         super(requiresAuthenticationRequestMatcher);
         this.tokenExtractor = tokenExtractor;
