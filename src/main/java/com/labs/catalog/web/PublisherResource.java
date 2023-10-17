@@ -10,6 +10,7 @@ import com.labs.catalog.service.PublisherService;
 import javax.validation.Valid;
 import javax.validation.constraints.Size;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -21,6 +22,7 @@ import java.net.URI;
 @Validated // Untuk memvalidasi argument
 @RestController
 @AllArgsConstructor
+@SecurityRequirement(name = "bearerAuth")
 public class PublisherResource {
 
     private final PublisherService publisherService;

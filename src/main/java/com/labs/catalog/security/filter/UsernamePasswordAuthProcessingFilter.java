@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.labs.catalog.dto.LoginRequestRecordDTO;
 import com.labs.catalog.exception.BadRequestException;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -19,11 +20,14 @@ import java.io.IOException;
 
 public class UsernamePasswordAuthProcessingFilter extends AbstractAuthenticationProcessingFilter {
 
+    @Autowired
     private final ObjectMapper objectMapper;
+    @Autowired
     private final AuthenticationSuccessHandler successHandler;
+    @Autowired
     private final AuthenticationFailureHandler failureHandler;
 
-    protected UsernamePasswordAuthProcessingFilter(String defaultFilterProcessesUrl, ObjectMapper objectMapper,
+    public UsernamePasswordAuthProcessingFilter(String defaultFilterProcessesUrl, ObjectMapper objectMapper,
                                                    AuthenticationSuccessHandler successHandler, AuthenticationFailureHandler failureHandler) {
         super(defaultFilterProcessesUrl);
         this.objectMapper = objectMapper;

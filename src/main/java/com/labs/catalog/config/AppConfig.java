@@ -1,16 +1,15 @@
 package com.labs.catalog.config;
 
-import com.labs.catalog.domain.Author;
-import com.labs.catalog.domain.Book;
-import com.labs.catalog.repository.BookRepository;
-import com.labs.catalog.repository.impl.BookRepositoryImpl;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.labs.catalog.security.util.JwtTokenFactory;
+import io.jsonwebtoken.io.Decoders;
+import io.jsonwebtoken.security.Keys;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.security.Key;
 
 @Configuration
 public class AppConfig {
@@ -53,8 +52,24 @@ public class AppConfig {
 //    }
 
     @Bean
+    public Key key(){
+        byte[] keyBytes = Decoders.BASE64.decode("kjasdkfjasdkfa878kjhkjh435ghfhgf32hgjhkj23456hjghfd4231gkhjsdlkjnasdklfja8342kjlsdf");
+        return Keys.hmacShaKeyFor(keyBytes);
+    }
+
+    @Bean
+    public JwtTokenFactory jwtTokeFactory(Key key){
+        return new JwtTokenFactory(key);
+    }
+
+    @Bean
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public ObjectMapper objectMapper(){
+        return new ObjectMapper();
     }
 
 }

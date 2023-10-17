@@ -2,6 +2,7 @@ package com.labs.catalog.web;
 
 import com.labs.catalog.dto.*;
 import com.labs.catalog.service.BookService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +15,7 @@ import java.util.List;
 @Slf4j
 @AllArgsConstructor
 @RestController
+@SecurityRequirement(name = "bearerAuth")
 public class BookResource {
 
     private final BookService bookService;

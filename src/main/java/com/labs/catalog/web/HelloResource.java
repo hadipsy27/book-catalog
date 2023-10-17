@@ -2,6 +2,7 @@ package com.labs.catalog.web;
 
 import com.labs.catalog.dto.HelloMessageDTO;
 import com.labs.catalog.service.GreetingService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@SecurityRequirement(name = "bearerAuth")
 public class HelloResource {
 
     Logger logger = LoggerFactory.getLogger(HelloResource.class);
